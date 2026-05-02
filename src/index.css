@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: 139, 92, 246; /* Violet 500 */
+    --primary-glow: rgba(139, 92, 246, 0.5);
+  }
+
+  body {
+    @apply bg-[#030712] text-slate-200 antialiased selection:bg-primary-500/30 selection:text-white;
+    font-family: 'Inter', sans-serif;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.1) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(30, 64, 175, 0.1) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading tracking-tight;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_0_rgba(0,0,0,0.36)];
+  }
+
+  .glass-card {
+    @apply glass hover:bg-white/[0.06] hover:border-white/[0.15] transition-all duration-500;
+  }
+  
+  .btn-primary {
+    @apply relative overflow-hidden bg-primary-600 hover:bg-primary-500 text-white font-bold py-2.5 px-6 rounded-xl transition-all duration-300 transform active:scale-95 shadow-lg shadow-primary-500/20 hover:shadow-primary-500/40;
+  }
+
+  .btn-primary::after {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full transition-transform duration-1000;
+  }
+
+  .btn-primary:hover::after {
+    @apply translate-x-full;
+  }
+
+  .input-field {
+    @apply w-full bg-white/[0.03] border border-white/[0.08] rounded-xl py-3 px-4 outline-none focus:border-primary-500/50 focus:bg-white/[0.06] focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 placeholder:text-slate-600 text-sm;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 to-blue-400;
+  }
+
+  .card-glow {
+    @apply relative;
+  }
+
+  .card-glow::before {
+    content: '';
+    @apply absolute -inset-0.5 bg-gradient-to-r from-primary-500 to-blue-500 rounded-2xl blur opacity-0 transition-opacity duration-500 -z-10;
+  }
+
+  .card-glow:hover::before {
+    @apply opacity-20;
+  }
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.scale-in {
+  animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+}
